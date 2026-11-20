@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Fullpage Capture</title>
+  <link rel="stylesheet" href="editor.css">
+</head>
+<body>
+  <header id="toolbar">
+    <div class="group" id="tools">
+      <button data-tool="crop" title="切り抜き (C)">✂︎ 切り抜き</button>
+      <button data-tool="rect" title="矩形 (R)">▭ 矩形</button>
+      <button data-tool="arrow" title="矢印 (A)">➚ 矢印</button>
+      <button data-tool="text" title="テキスト (T)">T テキスト</button>
+      <button data-tool="highlight" title="蛍光ペン (H)">▬ 蛍光</button>
+      <button data-tool="redact" title="黒塗り (B)">■ 黒塗り</button>
+      <button data-tool="mosaic" title="モザイク (M)">▦ モザイク</button>
+    </div>
+    <div class="group">
+      <label title="色"><input type="color" id="color" value="#e53935"></label>
+      <label title="線の太さ">線 <input type="number" id="lineWidth" min="1" max="30" value="4"></label>
+      <label title="文字サイズ">字 <input type="number" id="fontSize" min="8" max="120" value="20"></label>
+    </div>
+    <div class="group">
+      <button id="undo" title="元に戻す (⌘Z)">↶</button>
+      <button id="redo" title="やり直し (⌘⇧Z)">↷</button>
+      <select id="zoom" title="表示倍率">
+        <option value="fit">幅に合わせる</option>
+        <option value="0.5">50%</option>
+        <option value="0.75">75%</option>
+        <option value="1">100%</option>
+        <option value="1.5">150%</option>
+        <option value="2">200%</option>
+      </select>
+    </div>
+    <div class="group right">
+      <button id="copy" class="primary" title="クリップボードにコピー (⌘C)">コピー</button>
+      <button id="save" class="primary" title="PNG で保存 (⌘S)">保存</button>
+    </div>
+  </header>
+  <div id="info"></div>
+  <main id="main">
+    <div id="stage"><canvas id="view"></canvas></div>
+    <canvas id="overlay"></canvas>
+  </main>
+  <textarea id="textInput" rows="1" spellcheck="false" hidden></textarea>
+  <div id="toast" hidden></div>
+  <script type="module" src="editor.js"></script>
+</body>
+</html>

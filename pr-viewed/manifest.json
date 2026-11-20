@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "PR Auto Viewed (difit rules)",
+  "version": "0.1.0",
+  "description": "GitHub PR の Files changed で、difit と同じルール（lock / 生成ファイル / 削除ファイル等）に当てはまるファイルを自動で Viewed にして折りたたむ",
+  "permissions": ["storage"],
+  "host_permissions": [
+    "https://github.com/*",
+    "https://patch-diff.githubusercontent.com/*",
+    "https://raw.githubusercontent.com/*"
+  ],
+  "background": { "service_worker": "background.js" },
+  "action": { "default_title": "PR Auto Viewed" },
+  "options_ui": { "page": "options.html", "open_in_tab": false },
+  "content_scripts": [
+    {
+      "matches": ["https://github.com/*"],
+      "js": ["lib/dom.js", "bridge.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": ["https://github.com/*"],
+      "js": ["lib/settings.js", "lib/dom.js", "lib/bridge-client.js", "content.js", "tree-status.js"],
+      "css": ["tree-status.css"],
+      "run_at": "document_idle"
+    }
+  ]
+}

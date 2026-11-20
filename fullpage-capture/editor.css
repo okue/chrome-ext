@@ -1,0 +1,73 @@
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body {
+  display: flex;
+  flex-direction: column;
+  font: 13px -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif;
+  background: #2b2d31;
+  color: #e8eaed;
+}
+
+#toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  padding: 8px 12px;
+  background: #1e1f22;
+  border-bottom: 1px solid #3c3f44;
+}
+.group { display: flex; gap: 4px; align-items: center; }
+.group.right { margin-left: auto; }
+button, select, input[type=number] {
+  font: inherit;
+  color: inherit;
+  background: #3c3f44;
+  border: 1px solid #4e5258;
+  border-radius: 6px;
+  padding: 5px 9px;
+  cursor: pointer;
+}
+button:hover { background: #4e5258; }
+button.active { background: #1a73e8; border-color: #1a73e8; }
+button.primary { background: #1a73e8; border-color: #1a73e8; }
+button.primary:hover { background: #3b87ef; }
+button:disabled { opacity: .4; cursor: default; }
+input[type=number] { width: 52px; padding: 4px 6px; cursor: text; }
+input[type=color] { width: 32px; height: 28px; padding: 0; border: none; background: none; cursor: pointer; }
+label { display: flex; gap: 4px; align-items: center; color: #9aa0a6; }
+
+#info { padding: 4px 12px; color: #9aa0a6; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#info .warn { color: #fbbc04; }
+
+#main { position: relative; flex: 1; min-height: 0; }
+#stage { position: absolute; inset: 0; overflow: auto; padding: 16px; text-align: center; }
+#view { display: inline-block; box-shadow: 0 2px 12px rgba(0, 0, 0, .5); cursor: crosshair; background: #fff; }
+#overlay { position: absolute; inset: 0; pointer-events: none; }
+
+#textInput {
+  position: fixed;
+  z-index: 10;
+  min-width: 80px;
+  padding: 0;
+  border: 1px dashed #1a73e8;
+  background: rgba(255, 255, 255, .85);
+  font-weight: bold;
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif;
+  line-height: 1.25;
+  resize: none;
+  overflow: hidden;
+  outline: none;
+}
+
+#toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 16px;
+  background: #1e1f22;
+  border: 1px solid #4e5258;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, .5);
+}

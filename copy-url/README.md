@@ -13,8 +13,8 @@
 
 | 操作 | 結果 |
 |---|---|
-| `⌘⇧C` (Windows/Linux: `Ctrl+Shift+C`) | URL をコピー |
-| `⌘⇧K` (Windows/Linux: `Ctrl+Shift+K`) | Markdown リンク `[タイトル](URL)` でコピー |
+| `⌘⇧C` | URL をコピー |
+| `⌘⇧K` | Markdown リンク `[タイトル](URL)` でコピー |
 | ツールバーアイコンをクリック | URL をコピー |
 | 右クリック →「タブの URL をコピー」/「タブを Markdown リンクでコピー」 | それぞれの形式でコピー |
 

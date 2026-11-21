@@ -9,13 +9,12 @@
 
 ## インストール
 
-1. `chrome://extensions` を開く
-2. 右上の「デベロッパーモード」を ON
-3. 「パッケージ化されていない拡張機能を読み込む」でこのディレクトリ (`fullpage-capture/`) を選ぶ
+[ルートの README](../README.md#インストール-共通) の手順で、このディレクトリ (`fullpage-capture/`) を読み込む。
 
-コードを変更したら、`chrome://extensions` でこの拡張の更新ボタン (↻) を押す。
-
-ショートカット (`⌘⇧S` / `⌘⇧E`) は初回インストール時にだけ自動で割り当てられる。効かないときや変えたいときは `chrome://extensions/shortcuts` で設定する。
+| ショートカット | 動作 |
+|---|---|
+| `⌘⇧S` (Windows/Linux: `Alt+Shift+S`) | ページ全体をキャプチャ |
+| `⌘⇧E` (Windows/Linux: `Alt+Shift+E`) | 空の編集画面を開く (クリップボードの画像を編集) |
 
 ## 使い方
 

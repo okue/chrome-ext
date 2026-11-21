@@ -1,4 +1,4 @@
-import { putCapture, pruneCaptures } from './db.js';
+import { putCapture, pruneCaptures, KEEP_CAPTURES } from './db.js';
 
 // chrome.tabs.captureVisibleTab は 1 秒 2 回まで (MAX_CAPTURE_VISIBLE_TAB_CALLS_PER_SECOND)
 const MIN_CAPTURE_INTERVAL_MS = 550;
@@ -6,10 +6,26 @@ const MIN_CAPTURE_INTERVAL_MS = 550;
 const SETTLE_MS = 150;
 // Chrome の canvas 上限 (1 辺 32767px)
 const MAX_CANVAS_DIM = 32767;
-const KEEP_CAPTURES = 10;
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 let busy = false;
+
+// ---- 編集画面だけを開く (クリップボードの画像を貼り付けて編集する用) ----
+const openEditor = () => chrome.tabs.create({ url: chrome.runtime.getURL('editor.html') });
+
+chrome.runtime.onInstalled.addListener(() => {
+  chrome.contextMenus.create({
+    id: 'open-editor',
+    title: 'クリップボードの画像を編集 (⌘⇧E)',
+    contexts: ['action'], // 拡張アイコンの右クリックメニュー
+  });
+});
+chrome.contextMenus.onClicked.addListener((info) => {
+  if (info.menuItemId === 'open-editor') openEditor();
+});
+chrome.commands.onCommand.addListener((command) => {
+  if (command === 'open-editor') openEditor();
+});
 
 chrome.action.onClicked.addListener(async (tab) => {
   if (busy) return;

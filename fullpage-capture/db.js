@@ -2,6 +2,8 @@
 // service worker と editor.html は同じ拡張オリジンなので同じ DB を共有できる。
 const DB_NAME = 'fullpage-capture';
 const STORE = 'captures';
+/** 保存しておくキャプチャの件数 (撮影・貼り付けのたびに古いものから消す) */
+export const KEEP_CAPTURES = 10;
 
 function openDb() {
   return new Promise((resolve, reject) => {

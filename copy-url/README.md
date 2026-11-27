@@ -35,6 +35,7 @@
 background.js   選択中タブを取得 → 文字列を組み立て → クリップボードへ書き込み
 offscreen.html  スクリプトを注入できないページ用のフォールバック (offscreen document)
 offscreen.js
+icons/          拡張アイコン (icon.svg が元。PNG は 16/32/48/128)
 ```
 
 MV3 の service worker はクリップボードに直接書けないため、次の順で試す。

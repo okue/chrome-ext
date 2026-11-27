@@ -3,9 +3,18 @@
   "name": "Copy Tab URLs",
   "version": "1.0.0",
   "description": "Cmd+Shift+C で現在のタブ（複数選択時は選択中の全タブ）の URL をコピー",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
   "permissions": ["tabs", "offscreen", "contextMenus", "scripting", "activeTab", "clipboardWrite"],
   "background": { "service_worker": "background.js" },
-  "action": { "default_title": "タブの URL をコピー" },
+  "action": {
+    "default_title": "タブの URL をコピー",
+    "default_icon": { "16": "icons/icon16.png", "32": "icons/icon32.png" }
+  },
   "commands": {
     "copy-urls": {
       "suggested_key": { "default": "Ctrl+Shift+C", "mac": "Command+Shift+C" },

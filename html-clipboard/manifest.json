@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "HTML Clipboard",
+  "version": "1.0.0",
+  "description": "開いているHTMLをファイルとしてクリップボードにコピーします。Slackなどに貼り付けるとファイルが添付されます。",
+  "permissions": ["activeTab", "scripting", "nativeMessaging"],
+  "action": {
+    "default_title": "HTMLをファイルとしてコピー",
+    "default_popup": "popup.html"
+  }
+}

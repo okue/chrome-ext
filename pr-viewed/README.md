@@ -2,6 +2,8 @@
 
 GitHub PR の **Files changed** を開いたときに、[difit](https://github.com/yoshiko-pg/difit) と同じルールで「レビュー不要なファイル」を自動で **Viewed** にする Chrome 拡張。GitHub ネイティブの Viewed なので折りたたまれ、状態も GitHub 側に保存される。
 
+おまけで、[通知ページ](https://github.com/notifications) の Done を使いやすくする (マージ済み PR の一括 Done・行ごとの Done を左側へ)。
+
 - 送信先は github.com / patch-diff.githubusercontent.com / raw.githubusercontent.com のみ (外部サービスへの送信なし)
 - 依存ライブラリなし
 - 権限は `storage` と上記 3 ホストのみ
@@ -32,7 +34,7 @@ GitHub PR の **Files changed** を開いたときに、[difit](https://github.c
 
 ### 左のファイルツリー
 
-- 各ファイル・フォルダにチェックボックスを表示する。Viewed のファイルは薄く表示する
+- 各ファイル・フォルダのアイコンの左にチェックボックスを表示する。Viewed のファイルは薄く表示する
 - フォルダは配下が全部 Viewed なら ✓、一部なら −。クリックで配下をまとめて Viewed / 解除する
 - ツリーから切り替えても GitHub ネイティブの Viewed が変わる
   - 差分が表示中 → そのファイルの Viewed ボタンを押す
@@ -41,6 +43,13 @@ GitHub PR の **Files changed** を開いたときに、[difit](https://github.c
 - 状態が分かるのは「一度でも差分が DOM に載ったファイル」と「この拡張が操作したファイル」だけ。まだ見ていないファイルは Viewed でも未チェックに見えることがある (ホバーで「状態未取得」と出る)
 - 折りたたまれたフォルダは中身が描画されないので判定できない
 
+## 通知ページ (`github.com/notifications`)
+
+- **Merged を一括 Done**: 「Select all」の右に **Merged を Done (N)** ボタンを出す。N = 表示中の通知のうち、マージ済み PR (紫のマージアイコン) のもの。押すとそれらをまとめて Done にする
+  - 対象は今表示しているページの通知だけ。Open / Closed (未マージ) / Draft の PR や Issue には触らない
+- **行ごとの Done を左に**: 各通知のチェックボックスの右に ✓ ボタンを出す。押すとその通知を Done にする。右側 (ホバー時) の GitHub の Done ボタンは隠す
+- どちらも中では GitHub の各行の Done ボタンを押しているだけ (Done タブから Inbox に戻せる)
+
 ## 仕組み
 
 ```
@@ -48,12 +57,14 @@ background.js      PR の .diff を取得・パースして判定。バッジ更
 content.js         対象ファイルの GitHub の Viewed チェックボックス / ボタンを押す
 bridge.js          ページの MAIN world で動く。新 UI の React ボタン呼び出しと file_review POST
 tree-status.js     左のファイルツリーにチェックボックスを出す (+ tree-status.css)
+notifications.js   通知ページの「Merged を Done」ボタンと行ごとの Done (+ notifications.css)
 options.html/.js   オプション画面
 lib/generated.js   difit から移植した生成ファイル判定
 lib/diff.js        diff パーサ
 lib/dom.js         GitHub の DOM 操作ヘルパ
 lib/settings.js    設定の読み書き (chrome.storage)
 lib/bridge-client.js  content.js / tree-status.js から bridge.js を呼ぶクライアント
+icons/             拡張アイコン (icon.svg が元。PNG は 16/32/48/128)
 ```
 
 - `background.js` は `github.com/<o>/<r>/pull/<n>.diff` をログイン中の Cookie で取得する。diff に 1 行目が含まれないファイルだけ `github.com/<o>/<r>/raw/<headSha>/<path>` の先頭 4KB を読む (最大 200 ファイル)

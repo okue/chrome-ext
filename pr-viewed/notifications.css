@@ -1,0 +1,35 @@
+/* Notifications page: per-row Done button next to the checkbox (left). */
+.prv-row-done {
+  flex: none;
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 26px;
+  height: 26px;
+  margin: 0 4px 0 2px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--fgColor-muted, #59636e);
+  cursor: pointer;
+}
+.prv-row-done svg {
+  fill: currentColor;
+}
+.prv-row-done:hover {
+  color: var(--fgColor-success, #1a7f37);
+  background: var(--bgColor-success-muted, #dafbe1);
+  border-color: var(--borderColor-success-muted, rgba(74, 194, 107, 0.4));
+}
+.prv-row-done:disabled {
+  opacity: 0.4;
+  cursor: progress;
+}
+/* GitHub's own Done (hover action on the right) on rows that got ours. */
+.prv-left-done [title="Done"],
+.prv-left-done button[aria-label="Done"] {
+  display: none !important;
+}

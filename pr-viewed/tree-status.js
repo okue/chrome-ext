@@ -115,14 +115,26 @@
 
   // ------------------------------------------------------------ checkbox UI
 
-  // Put the box inside the text label so it flows with the name instead of
-  // landing in a grid cell of the row layout (legacy ActionList / Primer TreeView).
-  const LABEL_SEL = '.ActionList-item-label, [class*="item-content-text"], [class*="ItemLabel"]';
-  const boxHost = (el) => el.querySelector(LABEL_SEL) || el;
+  // The box goes on the left of the row's icon: [chevron] [box] [icon] name.
+  // Row layouts (legacy ActionList / Primer TreeView) are CSS grids, and a new
+  // direct child would be auto-placed into whatever cell is empty (often the
+  // trailing one, on the right). So the box goes *inside* the icon's wrapper
+  // (or inside the name label when there is no icon), never into the grid.
+  const LABEL_SEL =
+    '.ActionList-item-label, [class*="item-content-text"], [class*="ContentText"], [class*="ItemLabel"]';
+
+  /** [parent, nextSibling] the box should sit at in `row`. */
+  function boxSlot(row) {
+    const label = row.querySelector(LABEL_SEL);
+    if (!label) return [row, row.firstChild];
+    const icon = label.previousElementSibling;
+    if (icon?.matches('svg')) return [icon.parentElement, icon];
+    if (icon?.querySelector('svg')) return [icon, icon.firstChild];
+    return [label, label.firstChild];
+  }
 
   function ensureBox(row, onClick) {
-    const host = boxHost(row);
-    let box = host.querySelector(`:scope > .${BOX}`);
+    let box = row.querySelector(`.${BOX}`);
     if (!box) {
       // A span, not <input>: legacy folder rows are <button>s, and an input
       // inside a button doesn't reliably receive its own clicks.
@@ -139,8 +151,10 @@
       for (const t of ['mousedown', 'pointerdown', 'mouseup', 'pointerup']) {
         box.addEventListener(t, (e) => e.stopPropagation());
       }
-      host.prepend(box);
     }
+    // Re-place only when off (a no-op move would still fire the MutationObserver).
+    const [parent, next] = boxSlot(row);
+    if (box.parentNode !== parent || (next !== box && box.nextSibling !== next)) parent.insertBefore(box, next);
     box.prvOnClick = onClick;
     return box;
   }
@@ -172,7 +186,8 @@
 
     const files = treeFiles();
     for (const file of files) {
-      const box = ensureBox(file.link, () => setFiles([file], PRV.knownViewed.get(file.digest) !== true));
+      // Whole entry, not the link: the link may wrap only the name, not the icon.
+      const box = ensureBox(file.entry, () => setFiles([file], PRV.knownViewed.get(file.digest) !== true));
       render(box, file.link, PRV.knownViewed.get(file.digest), 'Viewed（状態未取得：ファイルを表示すると反映）');
       box.classList.toggle('prv-busy', busy.has(file.digest));
     }

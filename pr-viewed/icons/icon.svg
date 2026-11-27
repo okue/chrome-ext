@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4ac26b"/>
+      <stop offset="1" stop-color="#1a7f37"/>
+    </linearGradient>
+  </defs>
+  <rect x="4" y="4" width="120" height="120" rx="28" fill="url(#bg)"/>
+  <!-- ファイル (右上を折った紙) -->
+  <path d="M38 18 H78 L98 38 V102 a8 8 0 0 1 -8 8 H38 a8 8 0 0 1 -8 -8 V26 a8 8 0 0 1 8 -8 Z" fill="#fff"/>
+  <path d="M78 18 V32 a6 6 0 0 0 6 6 H98 Z" fill="#aee9c0"/>
+  <!-- Viewed のチェック -->
+  <path d="M45 68 L58 81 L84 55" fill="none" stroke="#1a7f37" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

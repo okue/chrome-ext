@@ -17,6 +17,8 @@
   line-height: 1;
   color: #fff;
   cursor: pointer;
+  /* Icon wrappers can set pointer-events: none (inherited). */
+  pointer-events: auto;
 }
 .prv-box[aria-checked="true"] {
   background: var(--fgColor-success, #1a7f37);
